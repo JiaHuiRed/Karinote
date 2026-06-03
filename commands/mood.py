@@ -9,7 +9,7 @@ def add_mood(args):
     conn.execute("INSERT INTO mood (datetime, mood, note) VALUES (?, ?, ?)", (dt, args.mood, args.note))
     conn.commit()
     conn.close()
-    print(f"[OK] mood: {args.mood}" + (f" - {args.note}" if args.note else ""))
+    print(f"[OK] 心情：{args.mood}" + (f" - {args.note}" if args.note else ""))
 
 
 def mood_today(args):
@@ -20,7 +20,7 @@ def mood_today(args):
     ).fetchall()
     conn.close()
     if not rows:
-        print("  no mood records today")
+        print("  今天还没有心情记录")
         return
     for r in rows:
         t = r["datetime"].split(" ")[1] if " " in r["datetime"] else ""
@@ -37,11 +37,11 @@ def mood_stats(args):
     ).fetchall()
     conn.close()
     if not rows:
-        print(f"  no mood records in last {days} days")
+        print(f"  最近 {days} 天无心情记录")
         return
-    print(f"  mood distribution (last {days} days):")
+    print(f"  最近 {days} 天心情分布：")
     for r in rows:
-        print(f"    {r['mood']}  {r['cnt']}x")
+        print(f"    {r['mood']}  {r['cnt']}次")
 
 
 def register(parent_subparsers):

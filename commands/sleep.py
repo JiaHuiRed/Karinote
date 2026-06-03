@@ -13,8 +13,8 @@ def add_sleep(args):
     )
     conn.commit()
     conn.close()
-    print(f"[OK] {date} sleep: {minutes_to_hm(args.total)}" +
-          (f", deep {args.deep}m" if args.deep else ""))
+    print(f"[OK] {date} 睡眠：{minutes_to_hm(args.total)}" +
+          (f"，深睡 {args.deep}m" if args.deep else ""))
 
 
 def show_sleep(args):
@@ -23,20 +23,20 @@ def show_sleep(args):
     row = conn.execute("SELECT * FROM sleep WHERE date = ?", (date,)).fetchone()
     conn.close()
     if not row:
-        print(f"  {date} no record")
+        print(f"  {date} 无记录")
         return
-    print(f"date: {row['date']}")
-    print(f"  total: {minutes_to_hm(row['total_min'])}")
+    print(f"日期: {row['date']}")
+    print(f"  总睡眠: {minutes_to_hm(row['total_min'])}")
     if row["deep_min"]:
-        print(f"  deep: {row['deep_min']}m")
+        print(f"  深睡: {row['deep_min']}m")
     if row["rem_min"]:
-        print(f"  rem:  {row['rem_min']}m")
+        print(f"  REM:  {row['rem_min']}m")
     if row["core_min"]:
-        print(f"  core: {row['core_min']}m")
+        print(f"  核心: {row['core_min']}m")
     if row["awake_min"]:
-        print(f"  awake: {row['awake_min']}m")
+        print(f"  清醒: {row['awake_min']}m")
     if row["note"]:
-        print(f"  note: {row['note']}")
+        print(f"  备注: {row['note']}")
 
 
 def sleep_stats(args):
@@ -49,14 +49,14 @@ def sleep_stats(args):
     ).fetchall()
     conn.close()
     if not rows:
-        print(f"  no sleep records in last {days} days")
+        print(f"  最近 {days} 天无睡眠记录")
         return
-    headers = ["date", "total", "deep"]
+    headers = ["日期", "总睡眠", "深睡"]
     data = [[r["date"], minutes_to_hm(r["total_min"]), f"{r['deep_min']}m"] for r in rows]
     print_table(headers, data)
     avg_total = sum(r["total_min"] for r in rows) / len(rows)
     avg_deep = sum(r["deep_min"] for r in rows) / len(rows)
-    print(f"  avg   {minutes_to_hm(int(avg_total))}  {avg_deep:.1f}m")
+    print(f"  平均  {minutes_to_hm(int(avg_total))}  {avg_deep:.1f}m")
 
 
 def register(parent_subparsers):
