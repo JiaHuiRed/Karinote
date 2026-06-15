@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RedPar</title>
+  <link rel="stylesheet" href="/src/renderer/style.css" />
+</head>
+<body>
+  <!-- Live2D Canvas -->
+  <div id="live2d-container">
+    <canvas id="live2d-canvas"></canvas>
+  </div>
+
+  <!-- Chat overlay -->
+  <div id="chat-overlay">
+    <!-- Messages area -->
+    <div id="messages"></div>
+
+    <!-- Input area -->
+    <div id="input-area">
+      <input
+        type="text"
+        id="chat-input"
+        placeholder="跟雨琦说点什么..."
+        autocomplete="off"
+      />
+      <button id="send-btn">Send</button>
+    </div>
+  </div>
+
+  <!-- Top bar -->
+  <div id="top-bar">
+    <span id="status-dot"></span>
+    <span id="status-text">就绪</span>
+    <span id="drag-handle">⠿</span>
+    <button id="apikey-btn" title="设置 API Key">🔑</button>
+    <button id="pin-toggle" title="切换穿透模式">📌</button>
+    <button id="close-btn" title="关闭">✕</button>
+  </div>
+
+  <!-- Setup overlay -->
+  <div id="setup-overlay">
+    <div id="setup-box">
+      <h2>欢迎使用 RedPar 🐳</h2>
+      <p>聊天功能已就绪（本地 Ollama）</p>
+      <p>如需语音功能，请设置 MiMo TTS 的 API Key</p>
+      <p>去 <a href="https://platform.xiaomimimo.com" target="_blank">platform.xiaomimimo.com</a> 注册免费获取</p>
+      <input type="text" id="setup-key" placeholder="粘贴你的 API Key" />
+      <p id="setup-error"></p>
+      <button id="setup-save">保存</button>
+    </div>
+  </div>
+
+  <script src="./cubism/live2dcubismcore.min.js"></script>
+  <script type="module" src="/src/renderer/main.ts"></script>
+</body>
+</html>

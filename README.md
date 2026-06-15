@@ -3,7 +3,7 @@
 > **私人状态记录本 — 只存本地，命令行交互，追踪睡眠、心情与身体数据。**
 > 作者：Red · Karina (敏敏)
 
-[![版本](https://img.shields.io/badge/版本-0.0.2-orange)](CHANGELOG.md)
+[![版本](https://img.shields.io/badge/版本-0.0.3-orange)](CHANGELOG.md)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776ab)](https://python.org)
 [![平台](https://img.shields.io/badge/平台-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)]()
 [![许可证](https://img.shields.io/badge/许可证-MIT-lightgrey)](LICENSE)
@@ -130,6 +130,7 @@ karinote/
 ├── db.py                # 数据库初始化、连接
 ├── config.py            # 配置文件读取、数据目录
 ├── utils.py             # 日期格式化、表格打印
+├── RedPar/              # 电子管家桌宠
 ├── commands/
 │   ├── sleep.py         # 睡眠命令
 │   └── mood.py          # 心情命令
