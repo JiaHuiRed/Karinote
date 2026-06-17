@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "karinote"
+version = "0.0.4"
+description = "私人状态记录本 — 只存本地，命令行交互，追踪睡眠、心情与身体数据"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+
+[project.scripts]
+karinote = "karinote:main"
+
+[tool.setuptools]
+py-modules = ["karinote", "config", "db", "utils"]
+
+[tool.setuptools.packages.find]
+include = ["commands*"]

@@ -1,10 +1,18 @@
+import sys
 import argparse
 from db import get_conn
 from utils import parse_date, today, minutes_to_hm, print_table, days_ago
 
 
 def add_sleep(args):
-    date = parse_date(args.date) if args.date else today()
+    if args.date:
+        try:
+            date = parse_date(args.date)
+        except ValueError as e:
+            print(f"错误: {e}")
+            sys.exit(1)
+    else:
+        date = today()
     conn = get_conn()
     conn.execute(
         "INSERT OR REPLACE INTO sleep (date, total_min, deep_min, awake_min, rem_min, core_min, note) "
@@ -18,7 +26,11 @@ def add_sleep(args):
 
 
 def show_sleep(args):
-    date = parse_date(args.date)
+    try:
+        date = parse_date(args.date)
+    except ValueError as e:
+        print(f"错误: {e}")
+        sys.exit(1)
     conn = get_conn()
     row = conn.execute("SELECT * FROM sleep WHERE date = ?", (date,)).fetchone()
     conn.close()

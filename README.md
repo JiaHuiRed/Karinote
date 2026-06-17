@@ -3,7 +3,7 @@
 > **私人状态记录本 — 只存本地，命令行交互，追踪睡眠、心情与身体数据。**
 > 作者：Red · Karina (敏敏)
 
-[![版本](https://img.shields.io/badge/版本-0.0.3-orange)](CHANGELOG.md)
+[![版本](https://img.shields.io/badge/版本-0.0.4-orange)](CHANGELOG.md)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776ab)](https://python.org)
 [![平台](https://img.shields.io/badge/平台-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)]()
 [![许可证](https://img.shields.io/badge/许可证-MIT-lightgrey)](LICENSE)
