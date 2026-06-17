@@ -13,14 +13,13 @@ def add_sleep(args):
             sys.exit(1)
     else:
         date = today()
-    conn = get_conn()
-    conn.execute(
-        "INSERT OR REPLACE INTO sleep (date, total_min, deep_min, awake_min, rem_min, core_min, note) "
-        "VALUES (?, ?, ?, ?, ?, ?, ?)",
-        (date, args.total, args.deep or 0, args.awake or 0, args.rem or 0, args.core or 0, args.note),
-    )
-    conn.commit()
-    conn.close()
+    with get_conn() as conn:
+        conn.execute(
+            "INSERT OR REPLACE INTO sleep (date, total_min, deep_min, awake_min, rem_min, core_min, note) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (date, args.total, args.deep or 0, args.awake or 0, args.rem or 0, args.core or 0, args.note),
+        )
+        conn.commit()
     print(f"[OK] {date} 睡眠：{minutes_to_hm(args.total)}" +
           (f"，深睡 {args.deep}m" if args.deep else ""))
 
@@ -31,9 +30,8 @@ def show_sleep(args):
     except ValueError as e:
         print(f"错误: {e}")
         sys.exit(1)
-    conn = get_conn()
-    row = conn.execute("SELECT * FROM sleep WHERE date = ?", (date,)).fetchone()
-    conn.close()
+    with get_conn() as conn:
+        row = conn.execute("SELECT * FROM sleep WHERE date = ?", (date,)).fetchone()
     if not row:
         print(f"  {date} 无记录")
         return
@@ -54,12 +52,11 @@ def show_sleep(args):
 def sleep_stats(args):
     days = args.days or 7
     since = days_ago(days)
-    conn = get_conn()
-    rows = conn.execute(
-        "SELECT date, total_min, deep_min FROM sleep WHERE date >= ? ORDER BY date",
-        (since,),
-    ).fetchall()
-    conn.close()
+    with get_conn() as conn:
+        rows = conn.execute(
+            "SELECT date, total_min, deep_min FROM sleep WHERE date >= ? ORDER BY date",
+            (since,),
+        ).fetchall()
     if not rows:
         print(f"  最近 {days} 天无睡眠记录")
         return
@@ -92,3 +89,5 @@ def register(parent_subparsers):
     sv = sub.add_parser("show", help="查看某天睡眠")
     sv.add_argument("--date", required=True, help="日期 YYYY-MM-DD")
     sv.set_defaults(func=show_sleep)
+
+    return parser

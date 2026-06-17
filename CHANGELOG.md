@@ -7,6 +7,16 @@
 ---
 
 
+## [0.0.5] - 2026-06-17
+
+### 重构
+
+- **数据库连接上下文管理器**：`db.get_conn()` 改为 `@contextmanager`，所有调用方改用 `with` 语句，不再手动 `close()`（`db.py`、`commands/sleep.py`、`commands/mood.py`）
+
+### 优化
+
+- **移除 argparse 私有属性访问**：`register()` 现返回 parser 实例，`karinote.py` 用字典索引替代 `parser._actions` 和 `_parser_class`（`karinote.py`、`commands/sleep.py`、`commands/mood.py`）
+
 ## [0.0.4] - 2026-06-17
 
 ### 新增

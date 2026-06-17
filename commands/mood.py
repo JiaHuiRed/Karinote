@@ -5,20 +5,18 @@ from utils import today, now_iso, days_ago
 
 def add_mood(args):
     dt = now_iso()
-    conn = get_conn()
-    conn.execute("INSERT INTO mood (datetime, mood, note) VALUES (?, ?, ?)", (dt, args.mood, args.note))
-    conn.commit()
-    conn.close()
+    with get_conn() as conn:
+        conn.execute("INSERT INTO mood (datetime, mood, note) VALUES (?, ?, ?)", (dt, args.mood, args.note))
+        conn.commit()
     print(f"[OK] 心情：{args.mood}" + (f" - {args.note}" if args.note else ""))
 
 
 def mood_today(args):
-    conn = get_conn()
-    rows = conn.execute(
-        "SELECT datetime, mood, note FROM mood WHERE datetime LIKE ? ORDER BY datetime",
-        (f"{today()}%",),
-    ).fetchall()
-    conn.close()
+    with get_conn() as conn:
+        rows = conn.execute(
+            "SELECT datetime, mood, note FROM mood WHERE datetime LIKE ? ORDER BY datetime",
+            (f"{today()}%",),
+        ).fetchall()
     if not rows:
         print("  今天还没有心情记录")
         return
@@ -30,12 +28,11 @@ def mood_today(args):
 def mood_stats(args):
     days = args.days or 7
     since = days_ago(days)
-    conn = get_conn()
-    rows = conn.execute(
-        "SELECT mood, COUNT(*) as cnt FROM mood WHERE datetime >= ? GROUP BY mood ORDER BY cnt DESC",
-        (since,),
-    ).fetchall()
-    conn.close()
+    with get_conn() as conn:
+        rows = conn.execute(
+            "SELECT mood, COUNT(*) as cnt FROM mood WHERE datetime >= ? GROUP BY mood ORDER BY cnt DESC",
+            (since,),
+        ).fetchall()
     if not rows:
         print(f"  最近 {days} 天无心情记录")
         return
@@ -59,3 +56,5 @@ def register(parent_subparsers):
     st = sub.add_parser("stats", help="心情统计")
     st.add_argument("--days", type=int, default=7, help="天数")
     st.set_defaults(func=mood_stats)
+
+    return parser

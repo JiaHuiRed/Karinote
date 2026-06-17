@@ -1,4 +1,6 @@
 import sqlite3
+from collections.abc import Generator
+from contextlib import contextmanager
 from config import get_db_path
 
 _SCHEMA = """
@@ -45,15 +47,18 @@ CREATE TABLE IF NOT EXISTS config (
 """
 
 
-def get_conn() -> sqlite3.Connection:
+@contextmanager
+def get_conn() -> Generator[sqlite3.Connection, None, None]:
     db_path = get_db_path()
     conn = sqlite3.connect(str(db_path))
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA journal_mode=WAL")
-    return conn
+    try:
+        yield conn
+    finally:
+        conn.close()
 
 
 def init_db():
-    conn = get_conn()
-    conn.executescript(_SCHEMA)
-    conn.close()
+    with get_conn() as conn:
+        conn.executescript(_SCHEMA)
