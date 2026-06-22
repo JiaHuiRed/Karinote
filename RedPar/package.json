@@ -1,16 +1,16 @@
 {
   "name": "redpar",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "private": true,
   "description": "RedPar — 你的数字人桌宠伙伴",
   "main": "dist/main/index.js",
   "scripts": {
-    "dev": "concurrently -k \"vite\" \"wait-on http://localhost:5173 && cross-env NODE_ENV=development electron .\"",
+    "dev": "concurrently -k \"vite\" \"wait-on http://localhost:5173; $env:NODE_ENV='development'; node scripts/electron-patch.js .\"",
     "build:renderer": "vite build",
     "build:main": "tsc -p tsconfig.node.json",
     "build": "npm run build:renderer && npm run build:main",
-    "start": "electron .",
-    "setup": "node scripts/download-model.mjs"
+    "start": "node scripts/electron-patch.js .",
+    "setup": "npx tsx scripts/download-model.mts"
   },
   "dependencies": {
     "@pixi/core": "^7.4.3",

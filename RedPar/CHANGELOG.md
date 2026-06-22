@@ -1,4 +1,22 @@
 # Changelog
+## [0.0.3] - 2026-06-22
+
+### 新增
+
+- **完整动画系统**：移植 AIRI stage-ui-live2d 动画核心，新增 `animation/` 模块（`blink.ts` 自动眨眼 3-8s、`eye-focus.ts` 视线跟随鼠标 + 空闲漂移、`beat-sync.ts` 头随节奏动、`lip-sync.ts` TTS 口型同步、`expression.ts` Live2D 表情、`motion-manager.ts` 插件架构）
+- **Hiyori 模型集成**：从 Live2D 官方 CubismWebSamples 下载完整 Hiyori 模型（moc3 + 2048 纹理 + 10 个 motion + 物理/表情），放 `public/models/hiyori/`
+- **Electron Node v24 兼容补丁**：`scripts/electron-patch.js` monkey-patch `util._extend`，解决 Electron 33 CLI 在 Node v24 下崩溃问题
+
+### 修复
+
+- `live2d.ts` 从 91 行 stub 升级为 264 行完整控制器，Spring 物理驱动头部角度（stiffness=120, damping=16）
+- `app.ts` 新增 `mousemove` 追踪雨琦视线 + TTS `startTalking/stopTalking` 钩子驱动口型
+
+### 变更
+
+- 动画模块全部用纯 TS class 实现，零 Vue/Pinia/Three.js 依赖，可直接复用
+
+
 ## [0.0.2] - 2026-06-15
 
 ### Added

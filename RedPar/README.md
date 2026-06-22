@@ -3,7 +3,7 @@
 > Red + Partner = RedPar  
 > 桌宠是雨琦，陪你在桌面上说说话、解解闷～
 
-**v0.0.2** · 桌面 Live2D 角色 + 本地 LLM 聊天 + MiMo TTS 语音 · 集成 Karinote 管家
+**v0.0.3** · 桌面 Live2D 角色 + 本地 LLM 聊天 + MiMo TTS 语音 · 集成 Karinote 管家 · 完整动画系统
 
 ---
 
