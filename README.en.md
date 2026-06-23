@@ -1,6 +1,6 @@
 # 📝 Karinote
 
-> **Personal Status Journal — Local-only, CLI-driven, tracking sleep, mood, and body metrics.**
+> **Personal Status Journal + Digital Butler Pet — Local-only, CLI-driven, tracking sleep, mood, and body metrics. Yuqi keeps you company on your desktop.**
 > Author: Red · Karina (Minyeon)
 
 [![Version](https://img.shields.io/badge/version-0.0.5-orange)](CHANGELOG.md)
@@ -14,9 +14,13 @@
 
 Karinote is a **fully local** personal status tracker. All data is stored in a local SQLite file — nothing is uploaded. Use the command line to log sleep, mood, and body metrics, and view statistics and trends anytime.
 
+Also comes with **RedPar Digital Butler Pet** — a Live2D desktop companion (Yuqi) that reads your Karinote data, proactively checks in on your sleep, mood, and body status, and chats with you to keep you company.
+
 ---
 
 ## 🧩 Core Features
+
+### 📝 Karinote — Personal Status Journal
 
 - 😴 **Sleep Tracking**: Total sleep, deep sleep, REM, core sleep, awake time, with notes
 - 💭 **Mood Tracking**: Emoji tags and custom text, timestamps recorded automatically
@@ -24,6 +28,15 @@ Karinote is a **fully local** personal status tracker. All data is stored in a l
 - 📊 **Custom Tracking**: Any metric (focus, stress, etc.) without schema changes (v0.1.0)
 - 📈 **Statistics**: Daily / weekly / monthly summaries, trend tables
 - 🔄 **Weekly / Monthly Reports**: One-click review summaries (v0.1.0)
+
+### 🐳 RedPar — Digital Butler Pet
+
+- 🎮 **Live2D Companion** — Yuqi stays on your desktop, always on top without blocking work
+- 💬 **Smart Chat** — Powered by local Ollama LLM, chat offline without internet
+- 🎤 **Voice Reply** (optional) — Speaks aloud with MiMo API Key, works without it too
+- 📌 **Click-through Mode** — Turns transparent on click, doesn't block window interactions
+- 📊 **Karinote Integration** — Reads your sleep, mood, and body data to check in on you
+- 🖼️ **Frameless Transparent** — Blends right into your desktop
 
 ---
 
